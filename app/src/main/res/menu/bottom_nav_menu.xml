@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_rail_logo"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_bookings"
+        android:icon="@drawable/ic_booking"
+        android:title="My Bookings" />
+    <item
+        android:id="@+id/navigation_you"
+        android:icon="@drawable/ic_you"
+        android:title="You" />
+    <item
+        android:id="@+id/navigation_menu"
+        android:icon="@drawable/ic_menu"
+        android:title="Menu" />
+</menu>
