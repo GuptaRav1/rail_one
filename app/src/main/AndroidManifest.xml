@@ -27,6 +27,11 @@
             android:theme="@style/Theme.RailOne" />
 
         <activity
+            android:name=".YouActivity"
+            android:exported="false"
+            android:theme="@style/Theme.RailOne" />
+
+        <activity
             android:name=".TicketDetailsActivity"
             android:exported="false"
             android:screenOrientation="portrait"

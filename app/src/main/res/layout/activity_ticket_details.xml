@@ -176,6 +176,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tv_booking_date_time_large"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="25 Jun 2026, 10:04"
@@ -298,6 +299,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/lbl_via" />
 
                         <TextView
+                            android:id="@+id/tv_booked_on"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="25/06/2026 10:04"
@@ -338,6 +340,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/lbl_v_from" />
 
                         <TextView
+                            android:id="@+id/tv_v_till"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="24/07/2026"
