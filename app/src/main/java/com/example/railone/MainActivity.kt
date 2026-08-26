@@ -13,9 +13,33 @@ class MainActivity : AppCompatActivity() {
         // Handle the splash screen transition.
         val splashScreen = installSplashScreen()
         enableEdgeToEdge()
-        val startTime = System.currentTimeMillis()
-        splashScreen.setKeepOnScreenCondition {
-            System.currentTimeMillis() - startTime < 2000
+        
+        // We trigger the exit animation immediately so the scale-down 
+        // starts right at the beginning of the splash screen.
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+            val iconView = splashScreenView.iconView
+            
+            // Initial state: scaled up
+            iconView.scaleX = 1.5f
+            iconView.scaleY = 1.5f
+            
+            // Animate scale down to 1.0 over the full 2-second duration
+            iconView.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(2000)
+                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                .start()
+
+            // Gradually fade out the splash screen background at the end
+            splashScreenView.view.animate()
+                .alpha(0f)
+                .setStartDelay(1500) // Stay solid for 1.5s
+                .setDuration(500)     // Fade out during the last 0.5s
+                .withEndAction {
+                    splashScreenView.remove()
+                }
+                .start()
         }
         
         super.onCreate(savedInstanceState)
