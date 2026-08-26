@@ -32,4 +32,6 @@
     <color name="ticket_pink_bg">#FFEBEE</color>
     <color name="ticket_blue_btn">#0052cc</color>
     <color name="ticket_info_label">#9E9E9E</color>
+    <color name="dynamic_ticket_bg">#121417</color>
+    <color name="dynamic_ticket_pattern">#1C1F24</color>
 </resources>

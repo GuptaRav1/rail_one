@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Solid base color -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#121417" />
+        </shape>
+    </item>
+
+    <!-- Diamond pattern -->
+    <item>
+        <bitmap
+            android:src="@drawable/bg_diamond_pattern"
+            android:tileMode="repeat" />
+    </item>
+</layer-list>

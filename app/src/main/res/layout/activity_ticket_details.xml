@@ -103,38 +103,64 @@
                     <!-- Green Border Top -->
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="8dp"
+                        android:layout_height="12dp"
                         android:background="#8BC34A" />
 
                     <!-- Dark Dynamic Section -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#1A1A1A"
+                        android:background="@drawable/bg_diamond_pattern"
                         android:paddingVertical="16dp">
 
+                        <!-- Left Vertical Text -->
                         <TextView
                             android:id="@+id/tv_rot_left"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:rotation="-90"
                             android:text="INDIAN RAILWAYS"
-                            android:textColor="#444444"
-                            android:textSize="14sp"
+                            android:textColor="#A0A0A0"
+                            android:textSize="22sp"
                             android:textStyle="bold"
+                            android:translationX="-70dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
+                        <!-- Left Dashed Line -->
+                        <View
+                            android:id="@+id/v_dash_left"
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:background="@drawable/bg_vertical_dashed_line"
+                            android:layout_marginStart="45dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Right Vertical Text -->
                         <TextView
                             android:id="@+id/tv_rot_right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:rotation="-90"
                             android:text="भारतीय रेल"
-                            android:textColor="#444444"
-                            android:textSize="14sp"
+                            android:textColor="#A0A0A0"
+                            android:textSize="25sp"
                             android:textStyle="bold"
+                            android:translationX="30dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Right Dashed Line -->
+                        <View
+                            android:id="@+id/v_dash_right"
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:layout_marginEnd="45dp"
+                            android:background="@drawable/bg_vertical_dashed_line"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -144,8 +170,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/v_dash_right"
+                            app:layout_constraintStart_toEndOf="@+id/v_dash_left"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
@@ -163,7 +189,7 @@
                                 android:layout_marginTop="8dp"
                                 android:text="04:17"
                                 android:textColor="#F44336"
-                                android:textSize="56sp"
+                                android:textSize="60sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -491,12 +517,11 @@
 
             <!-- QR Code -->
             <ImageView
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
-                android:src="@drawable/ic_launcher_foreground"
-                android:background="@color/white"
+                android:src="@drawable/qr_code"
                 android:padding="8dp"/>
 
             <!-- Do you know section -->
