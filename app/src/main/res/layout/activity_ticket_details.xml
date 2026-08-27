@@ -103,75 +103,28 @@
                     <!-- Green Border Top -->
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="12dp"
+                        android:layout_height="14dp"
                         android:background="#8BC34A" />
 
                     <!-- Dark Dynamic Section -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_diamond_pattern"
+                        android:background="@drawable/ticket_bg"
                         android:paddingVertical="16dp">
 
-                        <!-- Left Vertical Text -->
-                        <TextView
-                            android:id="@+id/tv_rot_left"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:rotation="-90"
-                            android:text="INDIAN RAILWAYS"
-                            android:textColor="#A0A0A0"
-                            android:textSize="22sp"
-                            android:textStyle="bold"
-                            android:translationX="-70dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
                         <!-- Left Dashed Line -->
-                        <View
-                            android:id="@+id/v_dash_left"
-                            android:layout_width="1dp"
-                            android:layout_height="0dp"
-                            android:background="@drawable/bg_vertical_dashed_line"
-                            android:layout_marginStart="45dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <!-- Right Vertical Text -->
-                        <TextView
-                            android:id="@+id/tv_rot_right"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:rotation="-90"
-                            android:text="भारतीय रेल"
-                            android:textColor="#A0A0A0"
-                            android:textSize="25sp"
-                            android:textStyle="bold"
-                            android:translationX="30dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
                         <!-- Right Dashed Line -->
-                        <View
-                            android:id="@+id/v_dash_right"
-                            android:layout_width="1dp"
-                            android:layout_height="0dp"
-                            android:layout_marginEnd="45dp"
-                            android:background="@drawable/bg_vertical_dashed_line"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            app:layout_constraintEnd_toStartOf="@+id/v_dash_right"
-                            app:layout_constraintStart_toEndOf="@+id/v_dash_left"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
@@ -179,7 +132,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Dynamic preview will close in"
                                 android:textColor="@color/white"
-                                android:textSize="16sp"
+                                android:textSize="20sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -189,7 +142,7 @@
                                 android:layout_marginTop="8dp"
                                 android:text="04:17"
                                 android:textColor="#F44336"
-                                android:textSize="60sp"
+                                android:textSize="65sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -197,8 +150,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="Ticket Booking Date &amp; Time"
-                                android:textColor="@color/white"
-                                android:textSize="14sp"
+                                android:textColor="#9D9D9D"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -207,7 +160,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="25 Jun 2026, 10:04"
                                 android:textColor="#FF9800"
-                                android:textSize="24sp"
+                                android:textSize="26sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -216,14 +169,14 @@
                                 android:layout_marginTop="8dp"
                                 android:text="R17529"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ticket is Non-Transferable"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -247,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:text="Season Ticket"
                             android:textColor="@color/black"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -257,6 +210,7 @@
                             android:text="X06ZEE3074"
                             android:textColor="@color/black"
                             android:textStyle="bold"
+                            android:textSize="16sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -264,7 +218,8 @@
                             android:id="@+id/tv_src"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:textSize="16sp"
+                            android:layout_marginTop="20dp"
                             android:text="BELAPUR C.B.D"
                             android:textColor="@color/black"
                             android:textStyle="bold"
@@ -277,7 +232,7 @@
                             android:layout_height="wrap_content"
                             android:text="— 10 km —"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_src"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -287,6 +242,7 @@
                             android:id="@+id/tv_dest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="16sp"
                             android:text="VASHI"
                             android:textColor="@color/black"
                             android:textStyle="bold"
@@ -297,10 +253,10 @@
                             android:id="@+id/lbl_via"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="14dp"
                             android:text="Via"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_src" />
 
@@ -310,7 +266,7 @@
                             android:layout_height="wrap_content"
                             android:text="Booked on"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/lbl_via" />
 
@@ -319,6 +275,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1RT>>JNJ-SNCR"
+                            android:textSize="16sp"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
@@ -329,6 +286,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="25/06/2026 10:04"
+                            android:textSize="16sp"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -338,10 +296,10 @@
                             android:id="@+id/lbl_v_from"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="14dp"
                             android:text="Valid From"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_via" />
 
@@ -351,7 +309,7 @@
                             android:layout_height="wrap_content"
                             android:text="*Valid Till"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/lbl_v_from" />
 
@@ -361,6 +319,7 @@
                             android:layout_height="wrap_content"
                             android:text="25/06/2026"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_v_from" />
@@ -371,6 +330,7 @@
                             android:layout_height="wrap_content"
                             android:text="24/07/2026"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_v_till" />
@@ -378,10 +338,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="14dp"
                             android:text="MONTHLY | ORDINARY | SECOND | ₹ 120.00"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_v_from" />
@@ -407,7 +367,7 @@
                             android:layout_height="wrap_content"
                             android:text="Name"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -417,7 +377,7 @@
                             android:layout_height="wrap_content"
                             android:text="Age"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -427,6 +387,7 @@
                             android:layout_height="wrap_content"
                             android:text="Ravi"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_name" />
@@ -436,6 +397,7 @@
                             android:layout_height="wrap_content"
                             android:text="28 years"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_age" />
@@ -444,10 +406,10 @@
                             android:id="@+id/lbl_id_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="14dp"
                             android:text="ID Type"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
@@ -457,7 +419,7 @@
                             android:layout_height="wrap_content"
                             android:text="ID Number"
                             android:textColor="@color/gray_text"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/lbl_id_type" />
 
@@ -466,6 +428,7 @@
                             android:layout_height="wrap_content"
                             android:text="Govt. issued Icard"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_id_type" />
@@ -475,6 +438,7 @@
                             android:layout_height="wrap_content"
                             android:text="691988272617"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_id_num" />
@@ -484,7 +448,7 @@
                     <!-- Green Border Bottom -->
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="8dp"
+                        android:layout_height="14dp"
                         android:background="#8BC34A" />
 
                 </LinearLayout>
@@ -497,7 +461,7 @@
                 android:layout_marginTop="12dp"
                 android:background="#FFEBEE"
                 android:gravity="center"
-                android:padding="12dp"
+                android:padding="16dp"
                 android:text="Note: This ticket is non refundable. Ticket is stored locally on the device. Please do not change your handset or perform factory reset."
                 android:textColor="#E53935"
                 android:textSize="11sp"
@@ -517,8 +481,8 @@
 
             <!-- QR Code -->
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="210dp"
+                android:layout_height="210dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
                 android:src="@drawable/qr_code"
@@ -531,20 +495,22 @@
                 android:layout_marginTop="24dp"
                 android:background="#EEEEEE"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Do you know?"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="IR recovers only 57% of cost of travel on an average."
                     android:textColor="@color/gray_text"
                     android:textSize="12sp" />
@@ -552,7 +518,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="This ticket is booked on a personal user ID. It's sale/purchase is an offence u/s 143 of the Railways Act, 1989"
                     android:textColor="@color/gray_text"
                     android:textSize="12sp" />
@@ -560,7 +526,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="For enquiry and integrated railway helpline, please dial 139."
                     android:textColor="@color/gray_text"
                     android:textSize="12sp" />
