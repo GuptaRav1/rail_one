@@ -10,7 +10,7 @@ import java.util.Locale
 
 class TicketDetailsActivity : AppCompatActivity() {
 
-    private lateinit var tvTimer: TextView
+    private lateinit var tvTimer: RollingTimerView
     private var countDownTimer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,11 +47,11 @@ class TicketDetailsActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = (millisUntilFinished / 1000) / 60
                 val seconds = (millisUntilFinished / 1000) % 60
-                tvTimer.text = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+                tvTimer.setTime(minutes, seconds)
             }
 
             override fun onFinish() {
-                tvTimer.text = "00:00"
+                tvTimer.setTime(0, 0)
                 finish() // Close activity when timer ends as implied by "Dynamic preview will close in"
             }
         }.start()

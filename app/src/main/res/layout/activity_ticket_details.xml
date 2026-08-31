@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ticket_screen_bg">
+    android:background="#EEEEEE">
 
     <!-- Top Bar -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -133,17 +133,16 @@
                                 android:text="Dynamic preview will close in"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                />
 
-                            <TextView
+                            <com.example.railone.RollingTimerView
+                                android:textStyle="bold"
                                 android:id="@+id/tv_timer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="04:17"
-                                android:textColor="#F44336"
-                                android:textSize="65sp"
-                                android:textStyle="bold" />
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginTop="8dp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -160,7 +159,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="25 Jun 2026, 10:04"
                                 android:textColor="#FF9800"
-                                android:textSize="26sp"
+                                android:textSize="28sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -522,7 +521,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:background="#EEEEEE"
+                android:background="#f5f5f5"
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:paddingTop="20dp"
