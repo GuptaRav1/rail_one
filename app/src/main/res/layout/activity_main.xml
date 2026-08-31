@@ -118,6 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:textSize="15sp"
                         android:layout_marginTop="8dp"
                         android:text="Reserved"
                         android:textColor="@color/gray_text" />
@@ -148,6 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:textSize="15sp"
                         android:layout_marginTop="8dp"
                         android:text="Unreserved"
                         android:textColor="@color/gray_text" />
@@ -177,6 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:textSize="15sp"
                         android:layout_marginTop="8dp"
                         android:text="Platform"
                         android:textColor="@color/gray_text" />
@@ -232,7 +235,8 @@
                         android:gravity="center"
                         android:text="Search\nTrains"
                         android:textColor="@color/blue_primary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp"
+                        />
                 </LinearLayout>
 
                 <!-- PNR Status -->
@@ -266,7 +270,7 @@
                         android:gravity="center"
                         android:text="PNR\nStatus"
                         android:textColor="@color/blue_primary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Coach Position -->
@@ -300,7 +304,7 @@
                         android:gravity="center"
                         android:text="Coach\nPosition"
                         android:textColor="@color/blue_primary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Track Your Train -->
@@ -334,7 +338,7 @@
                         android:gravity="center"
                         android:text="Track Your\nTrain"
                         android:textColor="@color/blue_primary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Second Row -->
@@ -368,7 +372,7 @@
                         android:gravity="center"
                         android:text="Order\nFood"
                         android:textColor="@color/blue_primary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- File Refund -->
@@ -401,7 +405,7 @@
                         android:gravity="center"
                         android:text="File\nRefund"
                         android:textColor="@color/blue_primary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Rail Madad -->
@@ -434,7 +438,7 @@
                         android:gravity="center"
                         android:text="Rail\nMadad"
                         android:textColor="@color/blue_primary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- Go To WAVES -->
@@ -467,7 +471,7 @@
                         android:gravity="center"
                         android:text="Order\nFood"
                         android:textColor="@color/blue_primary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
             </GridLayout>
