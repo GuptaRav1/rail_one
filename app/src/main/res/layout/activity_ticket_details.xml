@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@color/ticket_screen_bg">
 
     <!-- Top Bar -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -349,11 +349,40 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <!-- Dashed Line with Cutouts -->
-                    <View
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@drawable/bg_dashed_line"
-                        android:layout_marginHorizontal="16dp"/>
+                        android:layout_height="32dp"
+                        android:clipChildren="false"
+                        android:clipToPadding="false">
+
+                        <!-- Dashed Line -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1.5dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginHorizontal="16dp"
+                            android:background="@drawable/bg_dashed_line"
+                            android:layerType="software" />
+
+                        <!-- Left Notch / Cutout -->
+                        <View
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="-16dp"
+                            android:background="@drawable/bg_circle_cutout" />
+
+                        <!-- Right Notch / Cutout -->
+                        <View
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="-16dp"
+                            android:background="@drawable/bg_circle_cutout" />
+
+                    </RelativeLayout>
 
                     <!-- Passenger Details Section -->
                     <androidx.constraintlayout.widget.ConstraintLayout
