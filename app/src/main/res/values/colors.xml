@@ -8,7 +8,6 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue_primary">#1A237E</color>
-    <color name="blue_light">#E8EAF6</color>
     <color name="gray_text">#757575</color>
     <color name="pink_bg">#ffefef</color>
     <color name="green_bg">#eaffe7</color>
@@ -19,20 +18,6 @@
     <color name="waves_bg">#737391</color>
     <color name="blue_action_bar">#0066ff</color>
     <color name="orange_text">#F57C00</color>
-    <color name="light_yellow_bg">#FFF8E1</color>
     <color name="light_blue_tab_bg">#E3F2FD</color>
-    <color name="reserved_badge">#c7f3ff</color>
-    <color name="reserved_text">#00BCD4</color>
-    <color name="unreserved_badge">#F3E5F5</color>
-    <color name="unreserved_text">#9C27B0</color>
-    <color name="ticket_border">#FFE0B2</color>
-    <color name="ticket_dark_bg">#1A1A1A</color>
-    <color name="ticket_green_line">#4CAF50</color>
-    <color name="ticket_red_text">#E53935</color>
-    <color name="ticket_pink_bg">#FFEBEE</color>
-    <color name="ticket_blue_btn">#0052cc</color>
-    <color name="ticket_info_label">#9E9E9E</color>
-    <color name="dynamic_ticket_bg">#121417</color>
-    <color name="dynamic_ticket_pattern">#1C1F24</color>
     <color name="ticket_screen_bg">#F5F5F5</color>
 </resources>

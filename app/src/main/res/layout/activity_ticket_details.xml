@@ -423,7 +423,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="28 years"
+                            android:text="23 years"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
