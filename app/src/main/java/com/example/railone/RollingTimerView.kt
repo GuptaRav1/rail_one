@@ -62,6 +62,9 @@ class RollingTimerView @JvmOverloads constructor(
         addView(digitS2)
     }
 
+    private var lastMinutes: Long = -1L
+    private var lastSeconds: Long = -1L
+
     private fun createDigitReel(width: Int, height: Int): DigitReelView {
         return DigitReelView(context).apply {
             layoutParams = LayoutParams(width, height).apply {
@@ -72,6 +75,14 @@ class RollingTimerView @JvmOverloads constructor(
     }
 
     fun setTime(minutes: Long, seconds: Long) {
+        if ((minutes == lastMinutes) && (seconds == lastSeconds)) {
+            return
+        }
+
+        val isFirstPaint = (lastMinutes == -1L) && (lastSeconds == -1L)
+        lastMinutes = minutes
+        lastSeconds = seconds
+
         val m1 = (minutes / 10).toString()
         val m2 = (minutes % 10).toString()
         val s1 = (seconds / 10).toString()
@@ -79,8 +90,8 @@ class RollingTimerView @JvmOverloads constructor(
 
         digitM1.setDigit(m1, forceAnimate = false)
         digitM2.setDigit(m2, forceAnimate = false)
-        digitS1.setDigit(s1, forceAnimate = false)
-        digitS2.setDigit(s2, forceAnimate = false)
+        digitS1.setDigit(s1, forceAnimate = !isFirstPaint)
+        digitS2.setDigit(s2, forceAnimate = !isFirstPaint)
     }
 
     fun setTime(timeString: String) {
