@@ -181,11 +181,18 @@
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!-- Green Border Middle -->
-                    <View
+                    <!-- Green Border Middle (Progress Bar) -->
+                    <ProgressBar
+                        android:id="@+id/pb_timer_middle"
+                        style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
-                        android:background="#8BC34A" />
+                        android:indeterminate="false"
+                        android:max="300000"
+                        android:minHeight="0dp"
+                        android:maxHeight="8dp"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/bg_timer_progress" />
 
                     <!-- Booking Details Section -->
                     <androidx.constraintlayout.widget.ConstraintLayout

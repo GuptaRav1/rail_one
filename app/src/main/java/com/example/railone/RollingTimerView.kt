@@ -79,8 +79,8 @@ class RollingTimerView @JvmOverloads constructor(
 
         digitM1.setDigit(m1, forceAnimate = false)
         digitM2.setDigit(m2, forceAnimate = false)
-        digitS1.setDigit(s1, forceAnimate = true)
-        digitS2.setDigit(s2, forceAnimate = true)
+        digitS1.setDigit(s1, forceAnimate = false)
+        digitS2.setDigit(s2, forceAnimate = false)
     }
 
     fun setTime(timeString: String) {

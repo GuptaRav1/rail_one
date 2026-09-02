@@ -2,6 +2,8 @@ package com.example.railone
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.time.LocalDateTime
@@ -11,6 +13,7 @@ import java.util.Locale
 class TicketDetailsActivity : AppCompatActivity() {
 
     private lateinit var tvTimer: RollingTimerView
+    private lateinit var pbTimerMiddle: ProgressBar
     private var countDownTimer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +37,9 @@ class TicketDetailsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_v_till).text = validTill.format(dateFormatOnly)
 
         tvTimer = findViewById(R.id.tv_timer)
+        pbTimerMiddle = findViewById(R.id.pb_timer_middle)
 
-        findViewById<android.view.View>(R.id.btn_back).setOnClickListener {
+        findViewById<View>(R.id.btn_back).setOnClickListener {
             finish()
         }
 
@@ -43,16 +47,24 @@ class TicketDetailsActivity : AppCompatActivity() {
     }
 
     private fun startTimer(millis: Long) {
-        countDownTimer = object : CountDownTimer(millis, 1000) {
+        val totalMillis = millis.toInt()
+        pbTimerMiddle.max = totalMillis
+        pbTimerMiddle.progress = 0
+
+        countDownTimer = object : CountDownTimer(millis, 100) {
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = (millisUntilFinished / 1000) / 60
                 val seconds = (millisUntilFinished / 1000) % 60
                 tvTimer.setTime(minutes, seconds)
+
+                val elapsedTime = totalMillis - millisUntilFinished.toInt()
+                pbTimerMiddle.progress = elapsedTime
             }
 
             override fun onFinish() {
                 tvTimer.setTime(0, 0)
-                finish() // Close activity when timer ends as implied by "Dynamic preview will close in"
+                pbTimerMiddle.progress = totalMillis
+                finish()
             }
         }.start()
     }
