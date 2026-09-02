@@ -77,17 +77,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:paddingTop="0dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            >
 
             <TextView
                 android:id="@+id/tv_greeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginBottom="10dp"
                 android:paddingVertical="10dp"
+                android:background="#FFFFFF"
                 android:text="Thank You PAVAN BHAGVAT MHAISNE, Happy Journey !"
                 android:textColor="#333333"
-                android:textSize="13sp" />
+                android:textSize="15sp" />
 
             <!-- Main Ticket -->
             <androidx.cardview.widget.CardView
