@@ -12,9 +12,11 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="80dp"
         android:background="@color/blue_action_bar"
-        android:fitsSystemWindows="true"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView

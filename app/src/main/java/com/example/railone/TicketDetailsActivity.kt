@@ -1,11 +1,16 @@
 package com.example.railone
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.example.railone.data.UserPreferencesManager
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -15,26 +20,32 @@ class TicketDetailsActivity : AppCompatActivity() {
     private lateinit var tvTimer: RollingTimerView
     private lateinit var pbTimerMiddle: ProgressBar
     private var countDownTimer: CountDownTimer? = null
+    private lateinit var prefsManager: UserPreferencesManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false
+        window.statusBarColor = Color.TRANSPARENT
+
         setContentView(R.layout.activity_ticket_details)
 
-        // Set dynamic dates (Booking date = Now - 11 days)
-        val bookingDateTime = LocalDateTime.now().minusDays(11)
-        
-        // Formats
-        val largeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm", Locale.ENGLISH)
-        val standardFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH)
-        val dateFormatOnly = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
+        val topBar = findViewById<View>(R.id.topBar)
+        ViewCompat.setOnApplyWindowInsetsListener(topBar) { v, insets ->
+            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
+            val density = resources.displayMetrics.density
+            v.setPadding(
+                v.paddingLeft,
+                statusBarHeight + (12 * density).toInt(),
+                v.paddingRight,
+                (16 * density).toInt()
+            )
+            insets
+        }
 
-        findViewById<TextView>(R.id.tv_booking_date_time_large).text = bookingDateTime.format(largeFormat)
-        findViewById<TextView>(R.id.tv_booked_on).text = bookingDateTime.format(standardFormat)
-        findViewById<TextView>(R.id.tv_v_from).text = bookingDateTime.format(dateFormatOnly)
-        
-        // Valid Till = 1 month from booking date minus 1 day
-        val validTill = bookingDateTime.plusMonths(1).minusDays(1)
-        findViewById<TextView>(R.id.tv_v_till).text = validTill.format(dateFormatOnly)
+        prefsManager = UserPreferencesManager(this)
+
+        bindDynamicData()
 
         tvTimer = findViewById(R.id.tv_timer)
         pbTimerMiddle = findViewById(R.id.pb_timer_middle)
@@ -44,6 +55,48 @@ class TicketDetailsActivity : AppCompatActivity() {
         }
 
         startTimer(5 * 60 * 1000) // 5 minutes
+    }
+
+    private fun bindDynamicData() {
+        val ticket = prefsManager.getActiveTicket()
+        val user = ticket.userProfile
+
+        // Top Header
+        findViewById<TextView>(R.id.tv_header_mobile)?.text = "Mobile: ${user.mobileNumber}"
+
+        // Greeting
+        findViewById<TextView>(R.id.tv_greeting)?.text = "Thank You ${user.name}, Happy Journey !"
+
+        // Ticket Timing & Numbers
+        val bookingTimeDisplay = ticket.bookingDateTime.ifEmpty {
+            val bookingDateTime = LocalDateTime.now().minusDays(11)
+            val largeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm", Locale.ENGLISH)
+            bookingDateTime.format(largeFormat)
+        }
+        findViewById<TextView>(R.id.tv_booking_date_time_large)?.text = bookingTimeDisplay
+        findViewById<TextView>(R.id.tv_type)?.text = ticket.ticketType
+        findViewById<TextView>(R.id.tv_uts)?.text = ticket.utsNumber
+
+        // Stations & Route
+        findViewById<TextView>(R.id.tv_src)?.text = ticket.sourceStation
+        findViewById<TextView>(R.id.tv_dest)?.text = ticket.destinationStation
+        findViewById<TextView>(R.id.tv_dist)?.text = "— ${ticket.distanceKm} —"
+        findViewById<TextView>(R.id.tv_via)?.text = ticket.viaRoute
+
+        val bookedOnDisplay = if (ticket.bookingDateTime.isNotEmpty()) ticket.bookingDateTime else "25/06/2026 10:04"
+        findViewById<TextView>(R.id.tv_booked_on)?.text = bookedOnDisplay
+        findViewById<TextView>(R.id.tv_v_from)?.text = ticket.validFrom.ifEmpty { "25/06/2026" }
+        findViewById<TextView>(R.id.tv_v_till)?.text = ticket.validTill.ifEmpty { "24/07/2026" }
+
+        // Fare Line
+        val fareSummary = "${ticket.ticketType} | ${ticket.trainType} | ${ticket.classType} | ${ticket.price}"
+        findViewById<TextView>(R.id.tv_fare_summary)?.text = fareSummary
+
+        // Passenger Details
+        findViewById<TextView>(R.id.tv_name)?.text = user.name
+        findViewById<TextView>(R.id.tv_passenger_age)?.text = "${user.age} years"
+        findViewById<TextView>(R.id.tv_passenger_id_type)?.text = user.idType
+        findViewById<TextView>(R.id.tv_passenger_id_num)?.text = user.idNumber
     }
 
     private fun startTimer(millis: Long) {

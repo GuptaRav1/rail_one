@@ -1,14 +1,24 @@
 package com.example.railone
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.DecelerateInterpolator
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.railone.data.UserPreferencesManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var prefsManager: UserPreferencesManager
+    private lateinit var tvGreeting: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition.
         val splashScreen = installSplashScreen()
@@ -28,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 .scaleX(1f)
                 .scaleY(1f)
                 .setDuration(2000)
-                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                .setInterpolator(DecelerateInterpolator())
                 .start()
 
             // Gradually fade out the splash screen background at the end
@@ -45,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        prefsManager = UserPreferencesManager(this)
+        tvGreeting = findViewById(R.id.tv_greeting)
+
         // Make status bar icons dark because the background is light
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
@@ -54,19 +67,29 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottomNavigation)
+        findViewById<View>(R.id.card_unreserved)?.setOnClickListener {
+            startActivity(Intent(this, BookTicketActivity::class.java))
+        }
+
+        findViewById<BottomNavigationView>(R.id.bottomNavigation)
             .setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.navigation_bookings -> {
-                        startActivity(android.content.Intent(this, BookingsActivity::class.java))
+                        startActivity(Intent(this, BookingsActivity::class.java))
                         true
                     }
                     R.id.navigation_you -> {
-                        startActivity(android.content.Intent(this, YouActivity::class.java))
+                        startActivity(Intent(this, YouActivity::class.java))
                         true
                     }
                     else -> true
                 }
             }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val userProfile = prefsManager.getUserProfile()
+        tvGreeting.text = "Hi, ${userProfile.name}!"
     }
 }
