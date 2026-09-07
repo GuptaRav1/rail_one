@@ -68,10 +68,10 @@ class BookTicketActivity : AppCompatActivity() {
             }
 
             val now = LocalDateTime.now()
-            val standardFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH)
+            val image1Format = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm", Locale.ENGLISH)
             val dateFormatOnly = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
 
-            val bookingDateTimeStr = now.format(standardFormat)
+            val bookingDateTimeStr = now.format(image1Format)
             val validFromStr = now.format(dateFormatOnly)
             val validTillStr = now.plusMonths(1).minusDays(1).format(dateFormatOnly)
 

@@ -10,6 +10,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.railone.data.UserPreferencesManager
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class BookingsActivity : AppCompatActivity() {
 
@@ -56,9 +59,12 @@ class BookingsActivity : AppCompatActivity() {
     private fun bindTicketData() {
         val ticket = prefsManager.getActiveTicket()
 
+        val dynamicBookingDateTime = LocalDateTime.now().minusDays(11)
+        val bookingDateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm", Locale.ENGLISH)
+
         findViewById<TextView>(R.id.tv_uts)?.text = ticket.utsNumber
         findViewById<TextView>(R.id.tv_ticket_type)?.text = ticket.ticketType
-        findViewById<TextView>(R.id.tv_booking_date)?.text = ticket.bookingDateTime.ifEmpty { ticket.validFrom }
+        findViewById<TextView>(R.id.tv_booking_date)?.text = dynamicBookingDateTime.format(bookingDateFormat)
         findViewById<TextView>(R.id.tv_from)?.text = ticket.sourceStation
         findViewById<TextView>(R.id.tv_to)?.text = ticket.destinationStation
         findViewById<TextView>(R.id.tv_dist)?.text = "— ${ticket.distanceKm} —"
