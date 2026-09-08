@@ -80,21 +80,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="0dp"
-            android:paddingBottom="12dp"
             android:paddingLeft="12dp"
+            android:paddingTop="0dp"
             android:paddingRight="12dp"
-            >
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/tv_greeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginBottom="10dp"
-                android:paddingVertical="10dp"
                 android:background="#FFFFFF"
-                android:text="Thank You PAVAN BHAGVAT MHAISNE, Happy Journey !"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="Thank You Ravi Gupta, Happy Journey !"
                 android:textColor="#333333"
                 android:textSize="15sp" />
 
@@ -102,17 +101,18 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/white">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Green Border Top -->
+                    <!-- Border Top (Yellow for Journey, Green for Season) -->
                     <View
+                        android:id="@+id/v_border_top"
                         android:layout_width="match_parent"
                         android:layout_height="14dp"
                         android:background="#8BC34A" />
@@ -123,11 +123,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/ticket_bg"
                         android:paddingVertical="16dp">
-
-                        <!-- Left Dashed Line -->
-
-
-                        <!-- Right Dashed Line -->
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -144,16 +139,15 @@
                                 android:text="Dynamic preview will close in"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
-                                android:textStyle="bold"
-                                />
+                                android:textStyle="bold" />
 
                             <com.example.railone.RollingTimerView
-                                android:textStyle="bold"
                                 android:id="@+id/tv_timer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
-                                android:layout_marginTop="8dp" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -174,6 +168,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tv_subcode"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
@@ -192,7 +187,7 @@
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!-- Green Border Middle (Progress Bar) -->
+                    <!-- Middle Progress Bar -->
                     <ProgressBar
                         android:id="@+id/pb_timer_middle"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -200,8 +195,8 @@
                         android:layout_height="8dp"
                         android:indeterminate="false"
                         android:max="300000"
-                        android:minHeight="0dp"
                         android:maxHeight="8dp"
+                        android:minHeight="0dp"
                         android:progress="0"
                         android:progressDrawable="@drawable/bg_timer_progress" />
 
@@ -227,8 +222,8 @@
                             android:layout_height="wrap_content"
                             android:text="X06ZEE3074"
                             android:textColor="@color/black"
-                            android:textStyle="bold"
                             android:textSize="16sp"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -236,10 +231,10 @@
                             android:id="@+id/tv_src"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
                             android:layout_marginTop="20dp"
                             android:text="BELAPUR C.B.D"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_type" />
@@ -260,9 +255,9 @@
                             android:id="@+id/tv_dest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
                             android:text="VASHI"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/tv_src" />
@@ -293,8 +288,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1RT>>JNJ-SNCR"
-                            android:textSize="16sp"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_via" />
@@ -304,8 +299,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="25/06/2026 10:04"
-                            android:textSize="16sp"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_booked_on" />
@@ -365,10 +360,25 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_v_from" />
 
+                        <!-- IR Code Line (Visible on Journey Ticket) -->
+                        <TextView
+                            android:id="@+id/tv_ir_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="IR:27AAAGM0289C2ZI"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_fare_summary" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!-- Dashed Line with Cutouts -->
+                    <!-- Dashed Line with Cutouts (Present on BOTH Journey and Season Tickets) -->
                     <RelativeLayout
+                        android:id="@+id/layout_dashed_cutout"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:clipChildren="false"
@@ -403,8 +413,22 @@
 
                     </RelativeLayout>
 
-                    <!-- Passenger Details Section -->
+                    <!-- Journey Disclaimer (Visible below dashed line for Journey Ticket) -->
+                    <TextView
+                        android:id="@+id/tv_journey_disclaimer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="16dp"
+                        android:text="*Valid for start of journey within 1 hour or until departure of the first train."
+                        android:textColor="@color/gray_text"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                    <!-- Passenger Details Section (Visible below dashed line for Season Ticket) -->
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_passenger_details"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp">
@@ -496,8 +520,9 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!-- Green Border Bottom -->
+                    <!-- Border Bottom (Yellow for Journey, Green for Season) -->
                     <View
+                        android:id="@+id/v_border_bottom"
                         android:layout_width="match_parent"
                         android:layout_height="14dp"
                         android:background="#8BC34A" />
@@ -536,8 +561,8 @@
                 android:layout_height="210dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
-                android:src="@drawable/qr_code"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                android:src="@drawable/qr_code" />
 
             <!-- Do you know section -->
             <LinearLayout

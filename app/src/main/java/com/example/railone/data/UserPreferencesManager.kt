@@ -45,19 +45,23 @@ class UserPreferencesManager(context: Context) {
 
         return try {
             val json = JSONObject(ticketJson)
+            val category = json.optString("ticketCategory", "SEASON")
             TicketData(
-                utsNumber = json.optString("utsNumber", "X06ZEE3074"),
-                ticketType = json.optString("ticketType", "MONTHLY"),
+                utsNumber = json.optString("utsNumber", if (category == "JOURNEY") "X0HNEG00D8" else "X07DEF61F8"),
+                ticketCategory = category,
+                ticketType = json.optString("ticketType", if (category == "JOURNEY") "JOURNEY" else "MONTHLY"),
                 bookingDateTime = json.optString("bookingDateTime", ""),
                 validFrom = json.optString("validFrom", ""),
                 validTill = json.optString("validTill", ""),
-                sourceStation = json.optString("sourceStation", "BELAPUR C.B.D"),
+                sourceStation = json.optString("sourceStation", if (category == "JOURNEY") "KHARGHAR" else "PANVEL"),
                 destinationStation = json.optString("destinationStation", "VASHI"),
-                viaRoute = json.optString("viaRoute", "1RT>>JNJ-SNCR"),
-                distanceKm = json.optString("distanceKm", "10 km"),
+                viaRoute = json.optString("viaRoute", if (category == "JOURNEY") "------" else "1RT>>JNJ-SNCR"),
+                distanceKm = json.optString("distanceKm", if (category == "JOURNEY") "12 km" else "21 km"),
                 classType = json.optString("classType", "SECOND"),
                 trainType = json.optString("trainType", "ORDINARY"),
-                price = json.optString("price", "₹ 120.00"),
+                price = json.optString("price", if (category == "JOURNEY") "₹ 10.00" else "₹ 235.00"),
+                passengerCount = json.optString("passengerCount", "1 Adult, 0 Child"),
+                irCode = json.optString("irCode", "IR:27AAAGM0289C2ZI"),
                 userProfile = userProfile
             )
         } catch (e: Exception) {
@@ -68,6 +72,7 @@ class UserPreferencesManager(context: Context) {
     fun saveActiveTicket(ticket: TicketData) {
         val json = JSONObject().apply {
             put("utsNumber", ticket.utsNumber)
+            put("ticketCategory", ticket.ticketCategory)
             put("ticketType", ticket.ticketType)
             put("bookingDateTime", ticket.bookingDateTime)
             put("validFrom", ticket.validFrom)
@@ -79,6 +84,8 @@ class UserPreferencesManager(context: Context) {
             put("classType", ticket.classType)
             put("trainType", ticket.trainType)
             put("price", ticket.price)
+            put("passengerCount", ticket.passengerCount)
+            put("irCode", ticket.irCode)
         }
 
         prefs.edit()

@@ -2,6 +2,7 @@ package com.example.railone.data
 
 data class TicketData(
     val utsNumber: String = "X06ZEE3074",
+    val ticketCategory: String = "SEASON", // "JOURNEY" or "SEASON"
     val ticketType: String = "MONTHLY",
     val bookingDateTime: String = "",
     val validFrom: String = "",
@@ -13,5 +14,7 @@ data class TicketData(
     val classType: String = "SECOND",
     val trainType: String = "ORDINARY",
     val price: String = "₹ 120.00",
+    val passengerCount: String = "1 Adult, 0 Child",
+    val irCode: String = "IR:27AAAGM0289C2ZI",
     val userProfile: UserProfile = UserProfile()
 )

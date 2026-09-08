@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -48,15 +50,47 @@ class BookTicketActivity : AppCompatActivity() {
             finish()
         }
 
+        val rgCategory = findViewById<RadioGroup>(R.id.rg_ticket_category)
+        val rbJourney = findViewById<RadioButton>(R.id.rb_journey)
         val etSource = findViewById<EditText>(R.id.et_source)
         val etDestination = findViewById<EditText>(R.id.et_destination)
         val etViaRoute = findViewById<EditText>(R.id.et_via_route)
         val etDistance = findViewById<EditText>(R.id.et_distance)
         val etTicketType = findViewById<EditText>(R.id.et_ticket_type)
+        val etPassengerCount = findViewById<EditText>(R.id.et_passenger_count)
         val etClassType = findViewById<EditText>(R.id.et_class_type)
         val etTrainType = findViewById<EditText>(R.id.et_train_type)
         val etPrice = findViewById<EditText>(R.id.et_price)
         val etUtsNumber = findViewById<EditText>(R.id.et_uts_number)
+
+        // Handle category toggle to auto-populate ticket details matching sample tickets
+        rgCategory.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId == R.id.rb_journey) {
+                // Single Journey Ticket defaults
+                etSource.setText("KHARGHAR")
+                etDestination.setText("VASHI")
+                etViaRoute.setText("------")
+                etDistance.setText("12 km")
+                etTicketType.setText("JOURNEY")
+                etPassengerCount.setText("1 Adult, 0 Child")
+                etClassType.setText("SECOND")
+                etTrainType.setText("ORDINARY")
+                etPrice.setText("₹ 10.00")
+                etUtsNumber.setText("X0HNEG00D8")
+            } else {
+                // Season Pass / Monthly Ticket defaults
+                etSource.setText("PANVEL")
+                etDestination.setText("VASHI")
+                etViaRoute.setText("1RT>>JNJ-SNCR")
+                etDistance.setText("21 km")
+                etTicketType.setText("MONTHLY")
+                etPassengerCount.setText("1 Adult, 0 Child")
+                etClassType.setText("SECOND")
+                etTrainType.setText("ORDINARY")
+                etPrice.setText("₹ 235.00")
+                etUtsNumber.setText("X07DEF61F8")
+            }
+        }
 
         findViewById<Button>(R.id.btn_generate_ticket).setOnClickListener {
             val source = etSource.text.toString().trim()
@@ -67,29 +101,41 @@ class BookTicketActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val isJourney = rbJourney.isChecked
+            val ticketCategory = if (isJourney) "JOURNEY" else "SEASON"
+
             val now = LocalDateTime.now()
             val image1Format = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm", Locale.ENGLISH)
             val dateFormatOnly = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
 
             val bookingDateTimeStr = now.format(image1Format)
             val validFromStr = now.format(dateFormatOnly)
-            val validTillStr = now.plusMonths(1).minusDays(1).format(dateFormatOnly)
+            val validTillStr = if (isJourney) {
+                now.plusHours(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH))
+            } else {
+                now.plusMonths(1).minusDays(1).format(dateFormatOnly)
+            }
 
             val userProfile = prefsManager.getUserProfile()
 
             val newTicket = TicketData(
-                utsNumber = etUtsNumber.text.toString().trim().ifEmpty { "X06ZEE" + (1000..9999).random() },
-                ticketType = etTicketType.text.toString().trim().ifEmpty { "MONTHLY" },
+                utsNumber = etUtsNumber.text.toString().trim().ifEmpty {
+                    if (isJourney) "X0HNEG00D8" else "X07DEF61F8"
+                },
+                ticketCategory = ticketCategory,
+                ticketType = etTicketType.text.toString().trim().ifEmpty { if (isJourney) "JOURNEY" else "MONTHLY" },
                 bookingDateTime = bookingDateTimeStr,
                 validFrom = validFromStr,
                 validTill = validTillStr,
                 sourceStation = source,
                 destinationStation = destination,
-                viaRoute = etViaRoute.text.toString().trim().ifEmpty { "1RT>>DIRECT" },
-                distanceKm = etDistance.text.toString().trim().ifEmpty { "10 km" },
+                viaRoute = etViaRoute.text.toString().trim().ifEmpty { if (isJourney) "------" else "1RT>>JNJ-SNCR" },
+                distanceKm = etDistance.text.toString().trim().ifEmpty { if (isJourney) "12 km" else "21 km" },
                 classType = etClassType.text.toString().trim().ifEmpty { "SECOND" },
                 trainType = etTrainType.text.toString().trim().ifEmpty { "ORDINARY" },
-                price = etPrice.text.toString().trim().ifEmpty { "₹ 120.00" },
+                price = etPrice.text.toString().trim().ifEmpty { if (isJourney) "₹ 10.00" else "₹ 235.00" },
+                passengerCount = etPassengerCount.text.toString().trim().ifEmpty { "1 Adult, 0 Child" },
+                irCode = "IR:27AAAGM0289C2ZI",
                 userProfile = userProfile
             )
 
