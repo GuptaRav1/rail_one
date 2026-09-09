@@ -77,14 +77,15 @@ class TicketDetailsActivity : AppCompatActivity() {
         // Greeting
         findViewById<TextView>(R.id.tv_greeting)?.text = "Thank You ${user.name}, Happy Journey !"
 
-        // Dynamic preview timestamp
-        val dynamicBookingDateTime = LocalDateTime.now().minusDays(11)
+        // Booking Timestamp Logic: Real-time (current date) for Journey Ticket, minus 11 days for Season Ticket
+        val bookingDateTime = if (isJourney) LocalDateTime.now() else LocalDateTime.now().minusDays(11)
+
         val largeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm", Locale.ENGLISH)
         val dateTimeWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH)
         val dateTimeShort = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH)
         val dateOnlyFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
 
-        val bookingTimeDisplay = dynamicBookingDateTime.format(largeFormat)
+        val bookingTimeDisplay = bookingDateTime.format(largeFormat)
         findViewById<TextView>(R.id.tv_booking_date_time_large)?.text = bookingTimeDisplay
         findViewById<TextView>(R.id.tv_subcode)?.text = if (isJourney) "R17906" else "R17779"
 
@@ -119,10 +120,10 @@ class TicketDetailsActivity : AppCompatActivity() {
             tvBookedOn?.text = ticket.passengerCount
 
             tvLblVFrom?.text = "Booked on"
-            tvVFrom?.text = dynamicBookingDateTime.format(dateTimeWithSeconds)
+            tvVFrom?.text = bookingDateTime.format(dateTimeWithSeconds)
 
             tvLblVTill?.text = "*Valid Till"
-            tvVTill?.text = dynamicBookingDateTime.plusHours(1).format(dateTimeShort)
+            tvVTill?.text = bookingDateTime.plusHours(1).format(dateTimeShort)
 
             tvFareSummary?.text = "${ticket.classType} | ${ticket.trainType} | JOURNEY | ${ticket.price}"
 
@@ -136,13 +137,13 @@ class TicketDetailsActivity : AppCompatActivity() {
         } else {
             // Season Ticket Specific Layout
             tvLblBookedOn?.text = "Booked on"
-            tvBookedOn?.text = dynamicBookingDateTime.format(dateTimeShort)
+            tvBookedOn?.text = bookingDateTime.format(dateTimeShort)
 
             tvLblVFrom?.text = "Valid From"
-            tvVFrom?.text = dynamicBookingDateTime.plusDays(1).format(dateOnlyFormat)
+            tvVFrom?.text = bookingDateTime.plusDays(1).format(dateOnlyFormat)
 
             tvLblVTill?.text = "*Valid Till"
-            tvVTill?.text = dynamicBookingDateTime.plusMonths(1).minusDays(1).format(dateOnlyFormat)
+            tvVTill?.text = bookingDateTime.plusMonths(1).minusDays(1).format(dateOnlyFormat)
 
             tvFareSummary?.text = "${ticket.ticketType} | ${ticket.trainType} | ${ticket.classType} | ${ticket.price}"
 

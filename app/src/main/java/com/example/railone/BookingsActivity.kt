@@ -58,13 +58,15 @@ class BookingsActivity : AppCompatActivity() {
 
     private fun bindTicketData() {
         val ticket = prefsManager.getActiveTicket()
+        val isJourney = ticket.ticketCategory.equals("JOURNEY", ignoreCase = true) ||
+                ticket.ticketType.equals("JOURNEY", ignoreCase = true)
 
-        val dynamicBookingDateTime = LocalDateTime.now().minusDays(11)
+        val bookingDateTime = if (isJourney) LocalDateTime.now() else LocalDateTime.now().minusDays(11)
         val bookingDateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm", Locale.ENGLISH)
 
         findViewById<TextView>(R.id.tv_uts)?.text = ticket.utsNumber
         findViewById<TextView>(R.id.tv_ticket_type)?.text = ticket.ticketType
-        findViewById<TextView>(R.id.tv_booking_date)?.text = dynamicBookingDateTime.format(bookingDateFormat)
+        findViewById<TextView>(R.id.tv_booking_date)?.text = bookingDateTime.format(bookingDateFormat)
         findViewById<TextView>(R.id.tv_from)?.text = ticket.sourceStation
         findViewById<TextView>(R.id.tv_to)?.text = ticket.destinationStation
         findViewById<TextView>(R.id.tv_dist)?.text = "— ${ticket.distanceKm} —"
