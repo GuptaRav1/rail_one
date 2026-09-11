@@ -7,13 +7,13 @@
 
     <!-- Start circle node -->
     <path
-        android:fillColor="#1565C0"
+        android:fillColor="#B3B3B3"
         android:pathData="M 4.5,12 m -2.5,0 a 2.5,2.5 0 1,0 5,0 a 2.5,2.5 0 1,0 -5,0" />
 
     <!-- Bottom solid branch -->
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#1565C0"
+        android:strokeColor="#B3B3B3"
         android:strokeWidth="2.2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -21,13 +21,13 @@
 
     <!-- Bottom arrowhead -->
     <path
-        android:fillColor="#1565C0"
+        android:fillColor="#B3B3B3"
         android:pathData="M 16,15.5 L 20.5,18.5 L 16,21.5 Z" />
 
     <!-- Top dashed branch - Segment 1 -->
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#1565C0"
+        android:strokeColor="#B3B3B3"
         android:strokeWidth="2.2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -36,7 +36,7 @@
     <!-- Top dashed branch - Segment 2 -->
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#1565C0"
+        android:strokeColor="#B3B3B3"
         android:strokeWidth="2.2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -44,6 +44,6 @@
 
     <!-- Top arrowhead -->
     <path
-        android:fillColor="#1565C0"
+        android:fillColor="#B3B3B3"
         android:pathData="M 15.5,2.7 L 20.0,5.7 L 15.5,8.7 Z" />
 </vector>

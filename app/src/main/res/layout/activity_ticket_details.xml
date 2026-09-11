@@ -496,7 +496,7 @@
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingHorizontal="14dp"
-                            android:paddingVertical="10dp"
+                            android:paddingVertical="12dp"
                             app:layout_constraintTop_toBottomOf="@id/tv_v_from">
 
                             <ImageView
@@ -505,7 +505,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:contentDescription="Via route"
                                 android:src="@drawable/ic_route_fork"
-                                app:tint="#1565C0" />
+                                app:tint="#6D6D6D" />
 
                             <TextView
                                 android:id="@+id/tv_via"
