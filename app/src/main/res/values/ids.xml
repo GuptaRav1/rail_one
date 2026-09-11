@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="badge_active" type="id" />
+    <item name="tv_via" type="id" />
+</resources>

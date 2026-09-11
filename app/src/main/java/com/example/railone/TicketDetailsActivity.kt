@@ -82,50 +82,65 @@ class TicketDetailsActivity : AppCompatActivity() {
 
         val largeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm", Locale.ENGLISH)
         val dateTimeWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH)
-        val dateTimeShort = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH)
         val dateOnlyFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
 
         val bookingTimeDisplay = bookingDateTime.format(largeFormat)
         findViewById<TextView>(R.id.tv_booking_date_time_large)?.text = bookingTimeDisplay
-        findViewById<TextView>(R.id.tv_subcode)?.text = if (isJourney) "R17906" else "R17779"
+        findViewById<TextView>(R.id.tv_subcode)?.text = if (isJourney) "R17914" else "R17779"
 
         findViewById<TextView>(R.id.tv_type)?.text = if (isJourney) "Journey Ticket" else "Season Ticket"
         findViewById<TextView>(R.id.tv_uts)?.text = ticket.utsNumber
 
-        // Stations & Route
+        // Active Status Badge
+        val badgeActive = findViewById<View>(R.id.badge_active)
+        badgeActive?.visibility = View.VISIBLE
+
+        // Stations & Distance
         findViewById<TextView>(R.id.tv_src)?.text = ticket.sourceStation
         findViewById<TextView>(R.id.tv_dest)?.text = ticket.destinationStation
-        findViewById<TextView>(R.id.tv_dist)?.text = "—${ticket.distanceKm}—"
-        findViewById<TextView>(R.id.tv_via)?.text = ticket.viaRoute
 
-        // Via / Booked on & Validity Dates
+        val cleanDist = ticket.distanceKm.replace("—", "").trim()
+        findViewById<TextView>(R.id.tv_dist)?.text = if (cleanDist.endsWith("km", ignoreCase = true)) cleanDist else "$cleanDist km"
+
+        // Ticket Details Grid
+        findViewById<TextView>(R.id.tv_ticket_type)?.text = if (isJourney) "JOURNEY" else ticket.ticketType
+        findViewById<TextView>(R.id.tv_train_type)?.text = ticket.trainType
+        findViewById<TextView>(R.id.tv_class_type)?.text = ticket.classType
+
         val tvLblBookedOn = findViewById<TextView>(R.id.lbl_booked_on)
         val tvBookedOn = findViewById<TextView>(R.id.tv_booked_on)
         val tvLblVFrom = findViewById<TextView>(R.id.lbl_v_from)
         val tvVFrom = findViewById<TextView>(R.id.tv_v_from)
         val tvLblVTill = findViewById<TextView>(R.id.lbl_v_till)
         val tvVTill = findViewById<TextView>(R.id.tv_v_till)
-        val tvFareSummary = findViewById<TextView>(R.id.tv_fare_summary)
-        val tvIrCode = findViewById<TextView>(R.id.tv_ir_code)
-        val tvJourneyDisclaimer = findViewById<TextView>(R.id.tv_journey_disclaimer)
+        val tvVia = findViewById<TextView>(R.id.tv_via)
+        val tvFare = findViewById<TextView>(R.id.tv_fare)
+
+        tvVia?.text = "Via: ${ticket.viaRoute}"
+
         val layoutDashedCutout = findViewById<View>(R.id.layout_dashed_cutout)
         val layoutPassengerDetails = findViewById<View>(R.id.layout_passenger_details)
+        val tvIrCode = findViewById<TextView>(R.id.tv_ir_code)
+        val tvJourneyDisclaimer = findViewById<TextView>(R.id.tv_journey_disclaimer)
+        val tvFareSummary = findViewById<TextView>(R.id.tv_fare_summary)
 
         // Dashed cutout line is present on BOTH Journey & Season tickets
         layoutDashedCutout?.visibility = View.VISIBLE
 
         if (isJourney) {
-            // Journey Ticket Specific Layout
+            // Journey Ticket Grid Configuration
             tvLblBookedOn?.text = "Passenger"
             tvBookedOn?.text = ticket.passengerCount
 
-            tvLblVFrom?.text = "Booked on"
-            tvVFrom?.text = bookingDateTime.format(dateTimeWithSeconds)
+            tvFare?.text = if (ticket.price.contains("₹")) ticket.price else "₹${ticket.price}"
 
-            tvLblVTill?.text = "*Valid Till"
-            tvVTill?.text = bookingDateTime.plusHours(1).format(dateTimeShort)
+            // Hide Valid From / Valid Upto fields for Journey Ticket
+            tvLblVFrom?.visibility = View.GONE
+            tvVFrom?.visibility = View.GONE
+            tvLblVTill?.visibility = View.GONE
+            tvVTill?.visibility = View.GONE
 
-            tvFareSummary?.text = "${ticket.classType} | ${ticket.trainType} | JOURNEY | ${ticket.price}"
+            tvFareSummary?.visibility = View.GONE
 
             tvIrCode?.text = ticket.irCode
             tvIrCode?.visibility = View.VISIBLE
@@ -135,18 +150,25 @@ class TicketDetailsActivity : AppCompatActivity() {
 
             layoutPassengerDetails?.visibility = View.GONE
         } else {
-            // Season Ticket Specific Layout
+            // Season Ticket Grid Configuration
             tvLblBookedOn?.text = "Booked on"
-            tvBookedOn?.text = bookingDateTime.format(dateTimeShort)
+            tvBookedOn?.text = bookingDateTime.format(dateTimeWithSeconds)
+
+            val cleanPrice = ticket.price.replace("₹", "").trim()
+            tvFare?.text = cleanPrice
+
+            tvLblVFrom?.visibility = View.VISIBLE
+            tvVFrom?.visibility = View.VISIBLE
+            tvLblVTill?.visibility = View.VISIBLE
+            tvVTill?.visibility = View.VISIBLE
 
             tvLblVFrom?.text = "Valid From"
             tvVFrom?.text = bookingDateTime.plusDays(1).format(dateOnlyFormat)
 
-            tvLblVTill?.text = "*Valid Till"
+            tvLblVTill?.text = "Valid Upto"
             tvVTill?.text = bookingDateTime.plusMonths(1).minusDays(1).format(dateOnlyFormat)
 
-            tvFareSummary?.text = "${ticket.ticketType} | ${ticket.trainType} | ${ticket.classType} | ${ticket.price}"
-
+            tvFareSummary?.visibility = View.GONE
             tvIrCode?.visibility = View.GONE
             tvJourneyDisclaimer?.visibility = View.GONE
 
@@ -155,6 +177,7 @@ class TicketDetailsActivity : AppCompatActivity() {
             // Passenger Details
             findViewById<TextView>(R.id.tv_name)?.text = user.name
             findViewById<TextView>(R.id.tv_passenger_age)?.text = "${user.age} years"
+            findViewById<TextView>(R.id.lbl_id_type)?.text = "ID Type*"
             findViewById<TextView>(R.id.tv_passenger_id_type)?.text = user.idType
             findViewById<TextView>(R.id.tv_passenger_id_num)?.text = user.idNumber
         }
