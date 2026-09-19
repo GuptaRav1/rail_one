@@ -110,22 +110,52 @@ object RailwayGraph {
     private fun calculateFare(distanceKm: Int, travelClass: String): Int {
         return when (travelClass.uppercase()) {
             "FIRST" -> when {
-                distanceKm <= 10 -> 50
-                distanceKm <= 25 -> 65
-                distanceKm <= 45 -> 105
-                distanceKm <= 70 -> 140
-                distanceKm <= 90 -> 175
-                distanceKm <= 110 -> 205
-                else -> 235
+                distanceKm <= 10 -> 25
+                distanceKm <= 15 -> 40
+                distanceKm <= 20 -> 50
+                distanceKm <= 25 -> 60
+                distanceKm <= 30 -> 65
+                distanceKm <= 35 -> 75
+                distanceKm <= 40 -> 85
+                distanceKm <= 45 -> 90
+                distanceKm <= 50 -> 100
+                distanceKm <= 55 -> 105
+                distanceKm <= 60 -> 115
+                distanceKm <= 65 -> 120
+                distanceKm <= 70 -> 130
+                distanceKm <= 75 -> 135
+                distanceKm <= 80 -> 145
+                distanceKm <= 85 -> 155
+                distanceKm <= 90 -> 165
+                distanceKm <= 95 -> 175
+                distanceKm <= 100 -> 180
+                distanceKm <= 105 -> 190
+                distanceKm <= 110 -> 200
+                else -> 210
             }
             "AC" -> when {
                 distanceKm <= 10 -> 35
-                distanceKm <= 25 -> 65
-                distanceKm <= 45 -> 105
-                distanceKm <= 70 -> 155
-                distanceKm <= 90 -> 185
-                distanceKm <= 110 -> 210
-                else -> 235
+                distanceKm <= 15 -> 50
+                distanceKm <= 20 -> 60
+                distanceKm <= 25 -> 70
+                distanceKm <= 30 -> 85
+                distanceKm <= 35 -> 95
+                distanceKm <= 40 -> 105
+                distanceKm <= 45 -> 115
+                distanceKm <= 50 -> 125
+                distanceKm <= 55 -> 135
+                distanceKm <= 60 -> 145
+                distanceKm <= 65 -> 155
+                distanceKm <= 70 -> 165
+                distanceKm <= 75 -> 175
+                distanceKm <= 80 -> 185
+                distanceKm <= 85 -> 195
+                distanceKm <= 90 -> 205
+                distanceKm <= 95 -> 215
+                distanceKm <= 100 -> 225
+                distanceKm <= 105 -> 235
+                distanceKm <= 110 -> 245
+                else -> 255
             }
             else -> when {
                 distanceKm <= 10 -> 5
