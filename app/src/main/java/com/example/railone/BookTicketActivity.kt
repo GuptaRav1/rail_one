@@ -61,7 +61,7 @@ class BookTicketActivity : AppCompatActivity() {
         val etDistance = findViewById<EditText>(R.id.et_distance)
         val etTicketType = findViewById<EditText>(R.id.et_ticket_type)
         val etPassengerCount = findViewById<EditText>(R.id.et_passenger_count)
-        val etClassType = findViewById<EditText>(R.id.et_class_type)
+        val etClassType = findViewById<AutoCompleteTextView>(R.id.et_class_type)
         val etTrainType = findViewById<EditText>(R.id.et_train_type)
         val etPrice = findViewById<EditText>(R.id.et_price)
         val etUtsNumber = findViewById<EditText>(R.id.et_uts_number)
@@ -72,12 +72,20 @@ class BookTicketActivity : AppCompatActivity() {
         etSource.setAdapter(adapter)
         etDestination.setAdapter(adapter)
 
+        val classOptions = listOf("SECOND", "FIRST", "AC")
+        val classAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, classOptions)
+        etClassType.setAdapter(classAdapter)
+
         // Set up listeners to auto-calculate distance when both stations are selected
         etSource.setOnItemClickListener { _, _, _, _ ->
             calculateRouteDetails(etSource.text.toString().trim(), etDestination.text.toString().trim())
         }
         
         etDestination.setOnItemClickListener { _, _, _, _ ->
+            calculateRouteDetails(etSource.text.toString().trim(), etDestination.text.toString().trim())
+        }
+
+        etClassType.setOnItemClickListener { _, _, _, _ ->
             calculateRouteDetails(etSource.text.toString().trim(), etDestination.text.toString().trim())
         }
 
@@ -91,7 +99,7 @@ class BookTicketActivity : AppCompatActivity() {
                 etDistance.setText("12 km")
                 etTicketType.setText("JOURNEY")
                 etPassengerCount.setText("1 Adult, 0 Child")
-                etClassType.setText("SECOND")
+                etClassType.setText("SECOND", false)
                 etTrainType.setText("ORDINARY")
                 etPrice.setText("₹ 10.00")
                 etUtsNumber.setText("X0HNEG00D8")
@@ -103,7 +111,7 @@ class BookTicketActivity : AppCompatActivity() {
                 etDistance.setText("21 km")
                 etTicketType.setText("MONTHLY")
                 etPassengerCount.setText("1 Adult, 0 Child")
-                etClassType.setText("SECOND")
+                etClassType.setText("SECOND", false)
                 etTrainType.setText("ORDINARY")
                 etPrice.setText("₹ 235.00")
                 etUtsNumber.setText("X07DEF61F8")
@@ -170,10 +178,12 @@ class BookTicketActivity : AppCompatActivity() {
         val etViaRoute = findViewById<EditText>(R.id.et_via_route)
         val etDistance = findViewById<EditText>(R.id.et_distance)
         val etPrice = findViewById<EditText>(R.id.et_price)
+        val etClassType = findViewById<AutoCompleteTextView>(R.id.et_class_type)
 
         if (source.isEmpty() || destination.isEmpty()) return
 
-        val routeResult = RailwayGraph.findShortestPath(source, destination)
+        val travelClass = etClassType.text.toString().trim().ifEmpty { "SECOND" }
+        val routeResult = RailwayGraph.findShortestPath(source, destination, travelClass)
 
         if (routeResult != null) {
             etDistance.setText("${routeResult.distanceKm} km")

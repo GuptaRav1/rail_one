@@ -57,7 +57,7 @@ object RailwayGraph {
 
     data class RouteResult(val distanceKm: Int, val path: List<String>, val fare: Int, val via: String)
 
-    fun findShortestPath(source: String, dest: String): RouteResult? {
+    fun findShortestPath(source: String, dest: String, travelClass: String = "SECOND"): RouteResult? {
         if (!adjacencyList.containsKey(source) || !adjacencyList.containsKey(dest)) return null
         if (source == dest) return RouteResult(0, listOf(source), 5, "------")
 
@@ -101,21 +101,41 @@ object RailwayGraph {
         path.reverse()
 
         val totalDistance = Math.ceil(distances.getValue(dest)).toInt()
-        val fare = calculateFare(totalDistance)
+        val fare = calculateFare(totalDistance, travelClass)
         val via = calculateVia(path)
 
         return RouteResult(totalDistance, path, fare, via)
     }
 
-    private fun calculateFare(distanceKm: Int): Int {
-        return when {
-            distanceKm <= 10 -> 5
-            distanceKm <= 25 -> 10
-            distanceKm <= 45 -> 15
-            distanceKm <= 70 -> 20
-            distanceKm <= 90 -> 25
-            distanceKm <= 110 -> 30
-            else -> 35
+    private fun calculateFare(distanceKm: Int, travelClass: String): Int {
+        return when (travelClass.uppercase()) {
+            "FIRST" -> when {
+                distanceKm <= 10 -> 50
+                distanceKm <= 25 -> 65
+                distanceKm <= 45 -> 105
+                distanceKm <= 70 -> 140
+                distanceKm <= 90 -> 175
+                distanceKm <= 110 -> 205
+                else -> 235
+            }
+            "AC" -> when {
+                distanceKm <= 10 -> 35
+                distanceKm <= 25 -> 65
+                distanceKm <= 45 -> 105
+                distanceKm <= 70 -> 155
+                distanceKm <= 90 -> 185
+                distanceKm <= 110 -> 210
+                else -> 235
+            }
+            else -> when {
+                distanceKm <= 10 -> 5
+                distanceKm <= 25 -> 10
+                distanceKm <= 45 -> 15
+                distanceKm <= 70 -> 20
+                distanceKm <= 90 -> 25
+                distanceKm <= 110 -> 30
+                else -> 35
+            }
         }
     }
 
