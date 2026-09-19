@@ -160,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Passenger Count (e.g. 1 Adult, 0 Child)"
+                android:hint="Passenger Count"
                 android:textColorHint="@color/blue_primary"
                 app:boxStrokeColor="@color/blue_primary"
                 app:hintTextColor="@color/blue_primary">
@@ -169,7 +169,8 @@
                     android:id="@+id/et_passenger_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1 Adult, 0 Child"
+                    android:inputType="number"
+                    android:text="1"
                     android:textColor="@color/black"
                     android:textColorHint="#757575"
                     android:textSize="15sp" />

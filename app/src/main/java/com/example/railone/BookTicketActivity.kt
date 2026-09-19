@@ -3,6 +3,8 @@ package com.example.railone
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -84,20 +86,28 @@ class BookTicketActivity : AppCompatActivity() {
             calculateRouteDetails(etSource.text.toString().trim(), etDestination.text.toString().trim())
         }
 
+        etPassengerCount.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                calculateRouteDetails(etSource.text.toString().trim(), etDestination.text.toString().trim())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
         // Handle category toggle to auto-populate ticket details matching sample tickets
         rgCategory.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.rb_journey) {
                 // Single Journey Ticket defaults
                 etSource.setText("KHARGHAR", false)
                 etDestination.setText("VASHI", false)
-                etPassengerCount.setText("1 Adult, 0 Child")
+                etPassengerCount.setText("1")
                 etClassType.setText("SECOND", false)
                 etPrice.setText("₹ 10.00")
             } else {
                 // Season Pass / Monthly Ticket defaults
                 etSource.setText("PANVEL", false)
                 etDestination.setText("VASHI", false)
-                etPassengerCount.setText("1 Adult, 0 Child")
+                etPassengerCount.setText("1")
                 etClassType.setText("SECOND", false)
                 etPrice.setText("₹ 235.00")
             }
@@ -152,7 +162,7 @@ class BookTicketActivity : AppCompatActivity() {
                 classType = travelClass,
                 trainType = if (travelClass == "AC") "AC" else "ORDINARY",
                 price = finalPrice,
-                passengerCount = etPassengerCount.text.toString().trim().ifEmpty { "1 Adult, 0 Child" },
+                passengerCount = "${etPassengerCount.text.toString().trim().ifEmpty { "1" }} Adult, 0 Child",
                 irCode = "IR:27AAAGM0289C2ZI",
                 userProfile = userProfile
             )
@@ -169,14 +179,18 @@ class BookTicketActivity : AppCompatActivity() {
     private fun calculateRouteDetails(source: String, destination: String) {
         val etPrice = findViewById<EditText>(R.id.et_price)
         val etClassType = findViewById<AutoCompleteTextView>(R.id.et_class_type)
+        val etPassengerCount = findViewById<EditText>(R.id.et_passenger_count)
 
         if (source.isEmpty() || destination.isEmpty()) return
 
         val travelClass = etClassType.text.toString().trim().ifEmpty { "SECOND" }
         val routeResult = RailwayGraph.findShortestPath(source, destination, travelClass)
+        
+        val passengers = etPassengerCount.text.toString().trim().toIntOrNull() ?: 1
 
         if (routeResult != null) {
-            etPrice.setText("₹ ${routeResult.fare}.00")
+            val totalFare = routeResult.fare * passengers
+            etPrice.setText("₹ ${totalFare}.00")
         } else {
             // Fallback for invalid paths
             etPrice.setText("₹ 0.00")
