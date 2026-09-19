@@ -57,14 +57,9 @@ class BookTicketActivity : AppCompatActivity() {
         val rbJourney = findViewById<RadioButton>(R.id.rb_journey)
         val etSource = findViewById<AutoCompleteTextView>(R.id.et_source)
         val etDestination = findViewById<AutoCompleteTextView>(R.id.et_destination)
-        val etViaRoute = findViewById<EditText>(R.id.et_via_route)
-        val etDistance = findViewById<EditText>(R.id.et_distance)
-        val etTicketType = findViewById<EditText>(R.id.et_ticket_type)
         val etPassengerCount = findViewById<EditText>(R.id.et_passenger_count)
         val etClassType = findViewById<AutoCompleteTextView>(R.id.et_class_type)
-        val etTrainType = findViewById<EditText>(R.id.et_train_type)
         val etPrice = findViewById<EditText>(R.id.et_price)
-        val etUtsNumber = findViewById<EditText>(R.id.et_uts_number)
 
         val mumbaiStations = RailwayGraph.getAllStations()
 
@@ -95,26 +90,16 @@ class BookTicketActivity : AppCompatActivity() {
                 // Single Journey Ticket defaults
                 etSource.setText("KHARGHAR", false)
                 etDestination.setText("VASHI", false)
-                etViaRoute.setText("------")
-                etDistance.setText("12 km")
-                etTicketType.setText("JOURNEY")
                 etPassengerCount.setText("1 Adult, 0 Child")
                 etClassType.setText("SECOND", false)
-                etTrainType.setText("ORDINARY")
                 etPrice.setText("₹ 10.00")
-                etUtsNumber.setText("X0HNEG00D8")
             } else {
                 // Season Pass / Monthly Ticket defaults
                 etSource.setText("PANVEL", false)
                 etDestination.setText("VASHI", false)
-                etViaRoute.setText("1RT>>JNJ-SNCR")
-                etDistance.setText("21 km")
-                etTicketType.setText("MONTHLY")
                 etPassengerCount.setText("1 Adult, 0 Child")
                 etClassType.setText("SECOND", false)
-                etTrainType.setText("ORDINARY")
                 etPrice.setText("₹ 235.00")
-                etUtsNumber.setText("X07DEF61F8")
             }
         }
 
@@ -143,23 +128,30 @@ class BookTicketActivity : AppCompatActivity() {
             }
 
             val userProfile = prefsManager.getUserProfile()
+            val travelClass = etClassType.text.toString().trim().ifEmpty { "SECOND" }
+            val routeResult = RailwayGraph.findShortestPath(source, destination, travelClass)
+            
+            val finalDistance = if (routeResult != null) "${routeResult.distanceKm} km" else if (isJourney) "12 km" else "21 km"
+            val finalVia = if (routeResult != null) routeResult.via else if (isJourney) "------" else "1RT>>JNJ-SNCR"
+            val finalPrice = if (routeResult != null) "₹ ${routeResult.fare}.00" else etPrice.text.toString()
+
+            val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            val randomUts = (1..10).map { chars.random() }.joinToString("")
 
             val newTicket = TicketData(
-                utsNumber = etUtsNumber.text.toString().trim().ifEmpty {
-                    if (isJourney) "X0HNEG00D8" else "X07DEF61F8"
-                },
+                utsNumber = randomUts,
                 ticketCategory = ticketCategory,
-                ticketType = etTicketType.text.toString().trim().ifEmpty { if (isJourney) "JOURNEY" else "MONTHLY" },
+                ticketType = if (isJourney) "JOURNEY" else "MONTHLY",
                 bookingDateTime = bookingDateTimeStr,
                 validFrom = validFromStr,
                 validTill = validTillStr,
                 sourceStation = source,
                 destinationStation = destination,
-                viaRoute = etViaRoute.text.toString().trim().ifEmpty { if (isJourney) "------" else "1RT>>JNJ-SNCR" },
-                distanceKm = etDistance.text.toString().trim().ifEmpty { if (isJourney) "12 km" else "21 km" },
-                classType = etClassType.text.toString().trim().ifEmpty { "SECOND" },
-                trainType = etTrainType.text.toString().trim().ifEmpty { "ORDINARY" },
-                price = etPrice.text.toString().trim().ifEmpty { if (isJourney) "₹ 10.00" else "₹ 235.00" },
+                viaRoute = finalVia,
+                distanceKm = finalDistance,
+                classType = travelClass,
+                trainType = if (travelClass == "AC") "AC" else "ORDINARY",
+                price = finalPrice,
                 passengerCount = etPassengerCount.text.toString().trim().ifEmpty { "1 Adult, 0 Child" },
                 irCode = "IR:27AAAGM0289C2ZI",
                 userProfile = userProfile
@@ -175,8 +167,6 @@ class BookTicketActivity : AppCompatActivity() {
     }
 
     private fun calculateRouteDetails(source: String, destination: String) {
-        val etViaRoute = findViewById<EditText>(R.id.et_via_route)
-        val etDistance = findViewById<EditText>(R.id.et_distance)
         val etPrice = findViewById<EditText>(R.id.et_price)
         val etClassType = findViewById<AutoCompleteTextView>(R.id.et_class_type)
 
@@ -186,14 +176,10 @@ class BookTicketActivity : AppCompatActivity() {
         val routeResult = RailwayGraph.findShortestPath(source, destination, travelClass)
 
         if (routeResult != null) {
-            etDistance.setText("${routeResult.distanceKm} km")
             etPrice.setText("₹ ${routeResult.fare}.00")
-            etViaRoute.setText(routeResult.via)
         } else {
             // Fallback for invalid paths
-            etDistance.setText("0 km")
             etPrice.setText("₹ 0.00")
-            etViaRoute.setText("------")
         }
     }
 }
