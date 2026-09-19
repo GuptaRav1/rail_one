@@ -102,14 +102,14 @@ class BookTicketActivity : AppCompatActivity() {
                 etDestination.setText("VASHI", false)
                 etPassengerCount.setText("1")
                 etClassType.setText("SECOND", false)
-                etPrice.setText("₹ 10.00")
+                etPrice.setText("10")
             } else {
                 // Season Pass / Monthly Ticket defaults
                 etSource.setText("PANVEL", false)
                 etDestination.setText("VASHI", false)
                 etPassengerCount.setText("1")
                 etClassType.setText("SECOND", false)
-                etPrice.setText("₹ 235.00")
+                etPrice.setText("235")
             }
         }
 
@@ -143,7 +143,9 @@ class BookTicketActivity : AppCompatActivity() {
             
             val finalDistance = if (routeResult != null) "${routeResult.distanceKm} km" else if (isJourney) "12 km" else "21 km"
             val finalVia = if (routeResult != null) routeResult.via else if (isJourney) "------" else "1RT>>JNJ-SNCR"
-            val finalPrice = if (routeResult != null) "₹ ${routeResult.fare}.00" else etPrice.text.toString()
+            
+            val rawPrice = etPrice.text.toString().trim().ifEmpty { "0" }
+            val finalPrice = "₹ ${rawPrice}.00"
 
             val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             val randomUts = (1..10).map { chars.random() }.joinToString("")
@@ -190,10 +192,10 @@ class BookTicketActivity : AppCompatActivity() {
 
         if (routeResult != null) {
             val totalFare = routeResult.fare * passengers
-            etPrice.setText("₹ ${totalFare}.00")
+            etPrice.setText(totalFare.toString())
         } else {
             // Fallback for invalid paths
-            etPrice.setText("₹ 0.00")
+            etPrice.setText("0")
         }
     }
 }
