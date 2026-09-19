@@ -79,6 +79,7 @@
                     android:id="@+id/rb_journey"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:layout_weight="1"
                     android:text="Journey Ticket (Single)"
                     android:textColor="@color/black"
@@ -90,7 +91,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
                     android:text="Season Pass (Monthly)"
                     android:textColor="@color/black"
                     android:textSize="14sp"
@@ -109,7 +109,7 @@
 
             <!-- Source Station -->
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -118,7 +118,7 @@
                 app:boxStrokeColor="@color/blue_primary"
                 app:hintTextColor="@color/blue_primary">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/et_source"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
 
             <!-- Destination Station -->
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -141,7 +141,7 @@
                 app:boxStrokeColor="@color/blue_primary"
                 app:hintTextColor="@color/blue_primary">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/et_destination"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

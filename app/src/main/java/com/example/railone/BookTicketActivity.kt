@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
@@ -15,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.railone.data.TicketData
 import com.example.railone.data.UserPreferencesManager
+import com.example.railone.data.RailwayGraph
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -52,8 +55,8 @@ class BookTicketActivity : AppCompatActivity() {
 
         val rgCategory = findViewById<RadioGroup>(R.id.rg_ticket_category)
         val rbJourney = findViewById<RadioButton>(R.id.rb_journey)
-        val etSource = findViewById<EditText>(R.id.et_source)
-        val etDestination = findViewById<EditText>(R.id.et_destination)
+        val etSource = findViewById<AutoCompleteTextView>(R.id.et_source)
+        val etDestination = findViewById<AutoCompleteTextView>(R.id.et_destination)
         val etViaRoute = findViewById<EditText>(R.id.et_via_route)
         val etDistance = findViewById<EditText>(R.id.et_distance)
         val etTicketType = findViewById<EditText>(R.id.et_ticket_type)
@@ -63,12 +66,27 @@ class BookTicketActivity : AppCompatActivity() {
         val etPrice = findViewById<EditText>(R.id.et_price)
         val etUtsNumber = findViewById<EditText>(R.id.et_uts_number)
 
+        val mumbaiStations = RailwayGraph.getAllStations()
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, mumbaiStations)
+        etSource.setAdapter(adapter)
+        etDestination.setAdapter(adapter)
+
+        // Set up listeners to auto-calculate distance when both stations are selected
+        etSource.setOnItemClickListener { _, _, _, _ ->
+            calculateRouteDetails(etSource.text.toString().trim(), etDestination.text.toString().trim())
+        }
+        
+        etDestination.setOnItemClickListener { _, _, _, _ ->
+            calculateRouteDetails(etSource.text.toString().trim(), etDestination.text.toString().trim())
+        }
+
         // Handle category toggle to auto-populate ticket details matching sample tickets
         rgCategory.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.rb_journey) {
                 // Single Journey Ticket defaults
-                etSource.setText("KHARGHAR")
-                etDestination.setText("VASHI")
+                etSource.setText("KHARGHAR", false)
+                etDestination.setText("VASHI", false)
                 etViaRoute.setText("------")
                 etDistance.setText("12 km")
                 etTicketType.setText("JOURNEY")
@@ -79,8 +97,8 @@ class BookTicketActivity : AppCompatActivity() {
                 etUtsNumber.setText("X0HNEG00D8")
             } else {
                 // Season Pass / Monthly Ticket defaults
-                etSource.setText("PANVEL")
-                etDestination.setText("VASHI")
+                etSource.setText("PANVEL", false)
+                etDestination.setText("VASHI", false)
                 etViaRoute.setText("1RT>>JNJ-SNCR")
                 etDistance.setText("21 km")
                 etTicketType.setText("MONTHLY")
@@ -145,6 +163,27 @@ class BookTicketActivity : AppCompatActivity() {
 
             startActivity(Intent(this, BookingsActivity::class.java))
             finish()
+        }
+    }
+
+    private fun calculateRouteDetails(source: String, destination: String) {
+        val etViaRoute = findViewById<EditText>(R.id.et_via_route)
+        val etDistance = findViewById<EditText>(R.id.et_distance)
+        val etPrice = findViewById<EditText>(R.id.et_price)
+
+        if (source.isEmpty() || destination.isEmpty()) return
+
+        val routeResult = RailwayGraph.findShortestPath(source, destination)
+
+        if (routeResult != null) {
+            etDistance.setText("${routeResult.distanceKm} km")
+            etPrice.setText("₹ ${routeResult.fare}.00")
+            etViaRoute.setText(routeResult.via)
+        } else {
+            // Fallback for invalid paths
+            etDistance.setText("0 km")
+            etPrice.setText("₹ 0.00")
+            etViaRoute.setText("------")
         }
     }
 }
